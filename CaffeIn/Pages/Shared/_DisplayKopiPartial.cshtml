@@ -1,0 +1,21 @@
+﻿@model Kopi
+
+@{
+    var photoPath = "~/img/" + (Model.PhotoPath ?? "noimage.png");
+}
+
+<div class="col-md-4 mt-4">
+    <div class="card border-dark" style="width: 18rem;">
+        <img src="@photoPath" height="178" asp-append-version="true" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">@Model.NamaKopi</h5>
+            <p class="card-text">@Model.Deskripsi</p>
+        </div>
+        <div class="card-footer border-dark bg-dark">
+            <form method="post" asp-page="Index"  asp-route-kopiId="@Model.Id">
+                <a class="card-link text-warning">@Model.DisplayHarga</a>
+                <button type="submit" class="card-link border-0 bg-transparent text-warning">Beli Sekarang</button>
+            </form>
+        </div>
+    </div>
+</div>

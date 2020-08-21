@@ -1,0 +1,51 @@
+﻿@page "{id:min(1)}"
+@model CaffeIn.Pages.Admin.EditModel
+@{
+    ViewData["Title"] = "Edit";
+    var photoPath = "~/img/" + (Model.EditedKopi.PhotoPath ?? "noimage.png");
+}
+
+<h1>Edit Kopi</h1>
+
+
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input hidden asp-for="EditedKopi.Id" />
+    <input hidden asp-for="EditedKopi.PhotoPath" />
+    <div class="form-group">
+        <label asp-for="EditedKopi.NamaKopi">Nama Kopi</label>
+        <input asp-for="EditedKopi.NamaKopi" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="EditedKopi.Deskripsi">Deskripsi</label>
+        <input asp-for="EditedKopi.Deskripsi" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="EditedKopi.Harga">Harga</label>
+        <input asp-for="EditedKopi.Harga" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Photo" class="form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="Photo" class="custom-file-input form-control">
+                <label class="custom-file-label">Click here to upload photo</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row col-sm-4 offset-4">
+        <img class="imageThumbnail" src="@photoPath" asp-append-version="true" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}

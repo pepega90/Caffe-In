@@ -1,0 +1,64 @@
+﻿@page
+@model CaffeIn.Pages.User.MyOrderModel
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+
+@{
+    ViewData["Title"] = "MyOrder";
+    var user = await userManager.GetUserAsync(User);
+    int noUrut = 0;
+    int cartId = 0;
+}
+
+<h1>My Order</h1>
+@if (Model.MyCart.Where(e => e.UserId == user.Id).Count() > 0)
+{
+    <table class="table table-hover text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Kopi</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.MyCart.Where(e => e.UserId == user.Id))
+            {
+                var photoPath = "~/img/" + (item.Kopi.PhotoPath ?? "noimage.png");
+                ++noUrut;
+                cartId = item.Id;
+                <tr>
+                    <th scope="row">@noUrut</th>
+                    <td>
+                        <div>
+                            <p>@item.Kopi.NamaKopi</p>
+                            <img class="imageThumbnail" src="@photoPath" asp-append-version="true" />
+                        </div>
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Kopi.DisplayHarga</td>
+                    <td>
+                        <form method="post" asp-page-handler="HapusFromCart" asp-route-userId="@item.UserId" asp-route-kopiId="@item.KopiId">
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row text-right">
+        <div class="col-12">
+            @await Component.InvokeAsync("TotalSummary", new { userId = user.Id })
+            <form method="post" asp-page-handler="ClearCart" asp-route-cartId="@cartId" asp-route-userId="@user.Id">
+                <button class="btn btn-lg btn-warning">Bayar</button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <h3 class="mt-lg-5">Anda belum membeli Kopi sama sekali</h3>
+}
+

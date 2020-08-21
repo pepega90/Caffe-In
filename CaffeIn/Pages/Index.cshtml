@@ -1,0 +1,75 @@
+﻿@page
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="jumbotron" id="hero">
+    <h1 class="display-1 text-white">Caffe-In</h1>
+    <p class="lead text-white">Tempat Caffe Paling Gokil</p>
+    <p class="text-white">Ajak Teman-Teman kamu sekarang!</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Pesan Sekarang</a>
+</div>
+
+<h1 class="text-center display-3 mb-lg-5" style="margin-top: 4rem;">Ayo Nongkrong di Caffe-In</h1>
+<div data-aos="fade-down" data-aos-duration="650" class="row text-center">
+    <div class="col-md-4">
+        <i class="fa fa-wifi" style="font-size: 4rem;" aria-hidden="true"></i>
+        <h2 class="mt-3" style="font-weight: normal; font-size: 25px">Free Wifi</h2>
+    </div>
+    <div class="col-md-4">
+        <i class="fa fa-coffee" style="font-size: 4rem;" aria-hidden="true"></i>
+        <h2 class="mt-3" style="font-weight: normal; font-size: 25px">Coffe Dengan Kualitas Dunia</h2>
+    </div>
+    <div class="col-md-4">
+        <i class="fa fa-camera-retro" style="font-size: 4rem;" aria-hidden="true"></i>
+        <h2 class="mt-3" style="font-weight: normal; font-size: 25px">Tempat Instagramable</h2>
+    </div>
+</div>
+
+<div class="text-center" style="margin-top: 5em;">
+    <form>
+        <h4>Cari Coffe Favorite Kalian!</h4>
+        <input class="form-control" style="border-radius: 10px" placeholder="Search Coffe..." id="exampleInputPassword1">
+    </form>
+</div>
+
+<div data-aos="fade-up" data-aos-delay="200" data-aos-duration="750" class="row row-cols-1 row-cols-md-3">
+    @foreach (var kopi in Model.AllKopi.Take(3))
+    {
+        <partial name="_DisplayKopiPartial" model="@kopi" />
+    }
+</div>
+
+<div style="margin-top: 6rem;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <h5 class="text-center">Kata mereka yang sudah datang ke caffe-in</h5>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <blockquote class="d-block w-100 blockquote text-center">
+                <p class="mb-0">Kopinya Caffe-In sangat nikmat, paling pas untuk anak muda</p>
+                <footer class="blockquote-footer">Barrack Obama <cite title="Source Title">, cmonBruh</cite></footer>
+            </blockquote>
+        </div>
+        <div class="carousel-item">
+            <blockquote class="d-block w-100 blockquote text-center">
+                <p class="mb-0">Caffe-In emang tempat bagus banget buat mengisi insta story</p>
+                <footer class="blockquote-footer">Mia Khalifa <cite title="Source Title">, Pornstar</cite></footer>
+            </blockquote>
+        </div>
+        <div class="carousel-item">
+            <blockquote class="d-block w-100 blockquote text-center">
+                <p class="mb-0">Karena Caffe-In saya jadi bisa mendapatkan pekerjaan</p>
+                <footer class="blockquote-footer">Jepri Ando Bako <cite title="Source Title">, Pengangguran</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>

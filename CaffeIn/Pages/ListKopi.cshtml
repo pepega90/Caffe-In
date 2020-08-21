@@ -1,0 +1,43 @@
+﻿@page
+@model CaffeIn.Pages.ListKopiModel
+@{
+    ViewData["Title"] = "List Kopi";
+}
+
+<h1>List Coffe</h1>
+<form method="get">
+    <input asp-for="cariKopi" class="form-control" style="border-radius: 10px" placeholder="Search Coffe..." id="exampleInputPassword1">
+</form>
+<div class="row row-cols-1 row-cols-md-3">
+    @if (Model.Kopis.Count > 0)
+    {
+        @foreach (var kopi in Model.Kopis)
+        {
+            <partial name="_DisplayKopiPartial" model="@kopi" />
+        }
+    }
+    else
+    {
+        <h6 class="text-center mt-lg-5">Maaf Kopi yang anda cari tidak ditemukan</h6>
+    }
+</div>
+
+@{
+    var prevDisabled = !Model.Kopis.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Kopis.NextPage ? "disabled" : "";
+}
+
+<div class="text-center mt-lg-5">
+    <a asp-page="ListKopi"
+       asp-route-pageIndex="@(Model.Kopis.PageIndex - 1)"
+       class="btn btn-outline-warning btn-sm @prevDisabled">
+        Previous
+    </a>
+    <a class="m-3">@Model.Kopis.PageIndex</a>
+    <a asp-page="ListKopi"
+       asp-route-pageIndex="@(Model.Kopis.PageIndex + 1)"
+       class="btn btn-outline-warning btn-sm @nextDisabled">
+        Next
+    </a>
+</div>
+

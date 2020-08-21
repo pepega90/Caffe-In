@@ -1,0 +1,39 @@
+﻿@page
+@model CaffeIn.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Product";
+    int noUrut = 0;
+}
+
+<h1>Admin Product</h1>
+<a asp-page="Create" class="btn mb-3 btn-warning">Tambah Kopi</a>
+<table class="table table-hover text-center">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama Kopi</th>
+            <th scope="col">Deskripsi</th>
+            <th scope="col">Harga</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Kopis)
+        {
+            ++noUrut;
+            <tr>
+                <th scope="row">@noUrut</th>
+                <td>@item.NamaKopi</td>
+                <td>@item.Deskripsi</td>
+                <td>@item.DisplayHarga</td>
+                <td>
+                    <form method="post" asp-page-handler="HapusKopi" asp-route-Id="@item.Id">
+                        <a asp-page="Edit" asp-route-Id="@item.Id" class="btn btn-success">Edit</a>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
